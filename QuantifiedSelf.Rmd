@@ -61,6 +61,10 @@ print(paste("Accurancy RF:",   confusionMatrix(prediction_rf,   test$classe)$ove
 ```
 In the end the RandomForest approach seems to cope best with the pretty large number of predictors and gives a very good accurancy of abou 99%.
 
+The expected out of sample error [%] is:
+```{r}
+(1-as.numeric(confusionMatrix(prediction_rf,test$classe)$overall[1]))*100
+```
 
 # Prediction on given verification set
 As the RandomForest model worked best we are going to apply it as well to the verification data set, which contains 20 data points. The results are as following:

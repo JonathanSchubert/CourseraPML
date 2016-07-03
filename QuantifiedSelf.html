@@ -79,7 +79,7 @@ img {
 <h1>Read data and split into training/testing set</h1>
 <pre class="r"><code>library(caret)
 set.seed(5555)
-dat = read.csv(&quot;/Users/jonathanschubert/Documents/DataScience/Coursera/PracticalMachineLearning/Project/pml-training.csv&quot;, na.strings=c(&quot;&quot;,&quot; &quot;,&quot;NA&quot;), header = TRUE)
+dat = read.csv(&quot;/Users/jonathanschubert/Documents/DataScience/Coursera/PracticalMachineLearning/Project/CourseraPML/pml-training.csv&quot;, na.strings=c(&quot;&quot;,&quot; &quot;,&quot;NA&quot;), header = TRUE)
 indexTrain &lt;- createDataPartition(dat$classe, p=0.66, list=F)
 train &lt;- dat[indexTrain, ]
 test &lt;- dat[-indexTrain, ]</code></pre>
@@ -117,11 +117,14 @@ print(paste(&quot;Accurancy Tree:&quot;, confusionMatrix(prediction_tree, test$c
 <pre class="r"><code>print(paste(&quot;Accurancy RF:&quot;,   confusionMatrix(prediction_rf,   test$classe)$overall[1]))</code></pre>
 <pre><code>## [1] &quot;Accurancy RF: 0.989953516269306&quot;</code></pre>
 <p>In the end the RandomForest approach seems to cope best with the pretty large number of predictors and gives a very good accurancy of abou 99%.</p>
+<p>The expected out of sample error [%] is:</p>
+<pre class="r"><code>(1-as.numeric(confusionMatrix(prediction_rf,test$classe)$overall[1]))*100</code></pre>
+<pre><code>## [1] 1.004648</code></pre>
 </div>
 <div id="prediction-on-given-verification-set" class="section level1">
 <h1>Prediction on given verification set</h1>
 <p>As the RandomForest model worked best we are going to apply it as well to the verification data set, which contains 20 data points. The results are as following:</p>
-<pre class="r"><code>dat_pred = read.csv(&quot;/Users/jonathanschubert/Documents/DataScience/Coursera/PracticalMachineLearning/Project/pml-testing.csv&quot;, na.strings=c(&quot;&quot;,&quot; &quot;,&quot;NA&quot;), header = TRUE)
+<pre class="r"><code>dat_pred = read.csv(&quot;/Users/jonathanschubert/Documents/DataScience/Coursera/PracticalMachineLearning/Project/CourseraPML/pml-testing.csv&quot;, na.strings=c(&quot;&quot;,&quot; &quot;,&quot;NA&quot;), header = TRUE)
 prediction_rf   &lt;- predict(model_rf,   newdata=dat_pred)
 prediction_rf</code></pre>
 <pre><code>##  [1] B A B A A E D B A A B C B A E E A B B B
