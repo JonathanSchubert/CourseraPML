@@ -2,12 +2,9 @@
 title: "Project Quantified Self"
 author: "Jonathan Schubert"
 date: "2 July 2016"
-output: html_document
+output: pdf_document
 ---
 
-```{r, eval=FALSE}
-
-```
 
 # Motivation and data
 Using devices such as Jawbone Up, Nike FuelBand, and Fitbit it is now possible to collect a large amount of data about personal activity relatively inexpensively. These type of devices are part of the quantified self movement – a group of enthusiasts who take measurements about themselves regularly to improve their health, to find patterns in their behavior, or because they are tech geeks. One thing that people regularly do is quantify how much of a particular activity they do, but they rarely quantify how well they do it. In this project, your goal will be to use data from accelerometers on the belt, forearm, arm, and dumbell of 6 participants. They were asked to perform barbell lifts correctly and incorrectly in 5 different ways. More information is available from the website here: http://groupware.les.inf.puc-rio.br/har (see the section on the Weight Lifting Exercise Dataset).
@@ -21,7 +18,7 @@ The goal of your project is to predict the manner in which they did the exercise
 ```{r, message=FALSE}
 library(caret)
 set.seed(5555)
-dat = read.csv("/Users/jonathanschubert/Documents/DataScience/Coursera/PracticalMachineLearning/Project/pml-training.csv", na.strings=c(""," ","NA"), header = TRUE)
+dat = read.csv("/Users/jonathanschubert/Documents/DataScience/Coursera/PracticalMachineLearning/Project/CourseraPML/pml-training.csv", na.strings=c(""," ","NA"), header = TRUE)
 indexTrain <- createDataPartition(dat$classe, p=0.66, list=F)
 train <- dat[indexTrain, ]
 test <- dat[-indexTrain, ]
@@ -68,7 +65,7 @@ In the end the RandomForest approach seems to cope best with the pretty large nu
 # Prediction on given verification set
 As the RandomForest model worked best we are going to apply it as well to the verification data set, which contains 20 data points. The results are as following:
 ```{r}
-dat_pred = read.csv("/Users/jonathanschubert/Documents/DataScience/Coursera/PracticalMachineLearning/Project/pml-testing.csv", na.strings=c(""," ","NA"), header = TRUE)
+dat_pred = read.csv("/Users/jonathanschubert/Documents/DataScience/Coursera/PracticalMachineLearning/Project/CourseraPML/pml-testing.csv", na.strings=c(""," ","NA"), header = TRUE)
 prediction_rf   <- predict(model_rf,   newdata=dat_pred)
 prediction_rf
 ```
